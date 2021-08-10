@@ -23,33 +23,33 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="wordLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xF-Kq-zaP">
-                                <rect key="frame" x="57" y="158.5" width="300" height="168"/>
+                                <rect key="frame" x="57" y="158.5" width="300" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="promptLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4o-GV-RSo">
-                                <rect key="frame" x="57" y="344.5" width="300" height="20.5"/>
+                                <rect key="frame" x="57" y="197" width="300" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="usedLettersLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MlX-qR-KAg">
-                                <rect key="frame" x="57" y="391" width="300" height="20.5"/>
+                                <rect key="frame" x="57" y="243.5" width="300" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="usedLetters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNC-VS-asF">
-                                <rect key="frame" x="57" y="439.5" width="300" height="20.5"/>
+                                <rect key="frame" x="57" y="292" width="300" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gameRules" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfd-eV-yD6">
-                                <rect key="frame" x="57" y="494" width="300" height="50"/>
+                                <rect key="frame" x="57" y="412.5" width="300" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="dXg-ef-DHK"/>
+                                    <constraint firstAttribute="height" constant="300" id="dXg-ef-DHK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -67,6 +67,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pem-ar-f0B" secondAttribute="trailing" constant="20" id="InV-6l-8Z8"/>
                             <constraint firstItem="4xF-Kq-zaP" firstAttribute="top" secondItem="Pem-ar-f0B" secondAttribute="bottom" constant="34" id="MDw-Wv-8bi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="sfd-eV-yD6" secondAttribute="bottom" constant="318" id="PNa-J8-TCm"/>
+                            <constraint firstItem="sfd-eV-yD6" firstAttribute="top" secondItem="YNC-VS-asF" secondAttribute="bottom" constant="100" id="S4S-LL-D5l"/>
                             <constraint firstItem="Pem-ar-f0B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="259" id="Viq-A2-PRa"/>
                             <constraint firstItem="sfd-eV-yD6" firstAttribute="leading" secondItem="4xF-Kq-zaP" secondAttribute="leading" id="WAF-oh-LId"/>
                             <constraint firstItem="sfd-eV-yD6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="57" id="Wkh-xG-BEl"/>
@@ -74,7 +75,6 @@
                             <constraint firstItem="MlX-qR-KAg" firstAttribute="top" secondItem="w4o-GV-RSo" secondAttribute="bottom" constant="26" id="ais-gO-rrF"/>
                             <constraint firstItem="Pem-ar-f0B" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="c85-UQ-jNv"/>
                             <constraint firstItem="w4o-GV-RSo" firstAttribute="centerX" secondItem="4xF-Kq-zaP" secondAttribute="centerX" id="cVy-RA-ilE"/>
-                            <constraint firstItem="sfd-eV-yD6" firstAttribute="top" secondItem="YNC-VS-asF" secondAttribute="bottom" constant="34" id="dVd-rd-5EG"/>
                             <constraint firstItem="4xF-Kq-zaP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mfY-q5-ke7"/>
                             <constraint firstItem="sfd-eV-yD6" firstAttribute="centerX" secondItem="4xF-Kq-zaP" secondAttribute="centerX" id="o0Z-fo-rCq"/>
                             <constraint firstItem="sfd-eV-yD6" firstAttribute="leading" secondItem="YNC-VS-asF" secondAttribute="leading" id="xhS-Rf-5KM"/>

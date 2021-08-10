@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     var promptWord = ""
     var word = ""
     var clue = ""
-
+    var digitArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    
     @IBOutlet var wordLabel: UILabel! // Переменная куда будет записываться слово из массива слов
     @IBOutlet var promptLabel: UILabel! // Переменная куда будет записан текст подсказки
     @IBOutlet var scoreLabel: UILabel!  // Переменная где будут записаны очки
@@ -34,10 +35,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        
         usedLetters.text = "Here you'll see used letters"
         usedLettersLabel.text = "Letters below are already used"
-        gameRules.text = " Правила Игры.\n Случайным образом из списка.\n слов выбирается слово"
+        gameRules.text = " Правила Игры.\n Случайным образом из списка слов выбирается слово. Вам нужно угадать что это за слово, для этого вы вводите по одной букве. Если введена правильная буква, то она появится в слове. Не угадали семь раз - проиграли."
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add letter", style: .plain, target: self, action: #selector(addLetter))
         
@@ -107,9 +108,34 @@ class ViewController: UIViewController {
     // Отправка на обработку введенной буквы
     @objc func submitAnswer(_ answer: String) {
         let upperAnswer = answer.uppercased()
-        if upperAnswer.count > 1 {
+        
+        // Если введена цифра вместо буквы
+        if digitArray.contains(upperAnswer) {
+            showMassege(errorMasseges: .enteredDigit)
+            
+        // Если игрок ввел 7 раз неправильные буквы
+        } else if score <= -6 {
+            showMassege(errorMasseges: .youLoose)
+           newGame()
+        
+        // Если буква введена повторно
+        } else if usedLettersArray.contains(upperAnswer) {
+            showMassege(errorMasseges: .letterIsAlreadyUsed)
+        
+        // Если введена больше чем одна буква
+        } else if upperAnswer.count > 1 {
             showMassege(errorMasseges: .moreThanOneLetter)
-        } else {
+            
+        // Если введена буква которой нет в слове
+        } else if !lettersInWord.contains(upperAnswer){
+            showMassege(errorMasseges: .thereIsNoSuchLetter)
+            score -= 1
+            usedLettersArray.append(upperAnswer)
+        
+            // Если введена правильная буква
+        } else  if lettersInWord.contains(upperAnswer){
+            showMassege(errorMasseges: .rightAnswer)
+            score += 1
             usedLettersArray.append(upperAnswer)
             promptWord = ""
             for letter in word {
@@ -120,28 +146,13 @@ class ViewController: UIViewController {
                     //showError(errorMasseges: .thereIsNoSuchLetter)
                     promptWord += "?"
                 }
-               
-                wordLabel.text = promptWord
-                usedLetters.text = usedLettersArray.joined(separator: " ,")
             }
-            
-            if score <= -6 {
-                showMassege(errorMasseges: .youLoose)
-                
-            } else if !lettersInWord.contains(upperAnswer) {
-                showMassege(errorMasseges: .thereIsNoSuchLetter)
-                score -= 1
-            } else {
-                showMassege(errorMasseges: .rightAnswer)
-                score += 1
-            }
-            
+            print(usedLettersArray)
+            print(promptWord)
         }
-        
-        print(usedLettersArray)
-        print(promptWord)
+        usedLetters.text = usedLettersArray.joined(separator: " ,")
+        wordLabel.text = promptWord
     }
-    
     
     // Начало новой игры
     @objc func newGame() {
@@ -155,13 +166,15 @@ class ViewController: UIViewController {
         loadLevel()
     }
     
-    enum Masseges{
+    enum Masseges {
         case moreThanOneLetter
         case thereIsNoSuchLetter
         case rightAnswer
         case youLoose
+        case enteredDigit
+        case letterIsAlreadyUsed
     }
-
+    
     func showMassege(errorMasseges: Masseges) {
         var title = ""
         var massege = ""
@@ -181,13 +194,21 @@ class ViewController: UIViewController {
             
         case .youLoose:
             title = "You,ve made 7 mistakes.\n Game over"
+            
+        case .enteredDigit:
+            title = "OOpsss!"
+            massege = "This is not a letter, try again)"
+            
+        case .letterIsAlreadyUsed:
+            title = "Uahh)"
+            massege = "This letter is already used"
         }
         
         let ac = UIAlertController(title: "\(title)", message: "\(massege)", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Ok", style: .default))
         present(ac, animated: true)
     }
-
+    
 }
 
 
