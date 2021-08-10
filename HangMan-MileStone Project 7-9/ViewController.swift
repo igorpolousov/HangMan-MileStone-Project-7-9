@@ -1,7 +1,7 @@
 //
 //  ViewController.swift
 //  HangMan-MileStone Project 7-9
-//
+//  Day 41
 //  Created by Igor Polousov on 06.08.2021.
 //
 
@@ -46,7 +46,10 @@ class ViewController: UIViewController {
         
         scoreLabel.text = "Score: \(score)"
         
-        loadLevel()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.loadLevel()
+        }
+        
         
         
         
@@ -55,17 +58,23 @@ class ViewController: UIViewController {
     // Добавление слов из файла
     
     func loadLevel() {
+        // Получение данных из файла
         if let wordsProjectURL = Bundle.main.url(forResource: "wordsProject7-9", withExtension: "txt") {
             if let levelContents = try? String(contentsOf: wordsProjectURL) {
                 var lines = levelContents.components(separatedBy: "\n")
+                // Перемешали данные в массиве
                 lines.shuffle()
+                // Разделили слово и подсказку
                 for line in lines {
                     let parts = line.components(separatedBy: ":")
+                    // Добавил по разным массивам
                     let word = parts[0]
                     let clue = parts[1]
+                    // Добавил в свои массивы
                     allWords.append(word)
                     allClues.append(clue)
                 }
+                // Сделали выбор слова и подсказки для отгадывания
                 word = allWords[0]
                 clue = allClues[0]
                 for letter in word {
@@ -73,7 +82,7 @@ class ViewController: UIViewController {
                     lettersInWord.append(strLetter)
                 }
                 print(lettersInWord)
-                
+                // Сделал чтобы вместо букв показывали вопросительные знаки  используется 2 раза можно сделать функцию
                 for letter in word {
                     let strLetter = String(letter)
                     
@@ -83,10 +92,12 @@ class ViewController: UIViewController {
                         promptWord += "?"
                     }
                 }
-                
-                wordLabel.text = promptWord
-                promptLabel.text = clue
             }
+        }
+        // добавили слово и подсказку на экран
+        DispatchQueue.main.async { [weak self] in
+            self?.wordLabel.text = self?.promptWord
+            self?.promptLabel.text = self?.clue
         }
     }
     
@@ -98,7 +109,7 @@ class ViewController: UIViewController {
         let submitAction = UIAlertAction(title: "Submit", style: .default) {
             [weak self, weak ac] action in
             guard let answer = ac?.textFields?[0].text else { return }
-            self?.submitAnswer(answer)
+                self?.submitAnswer(answer)
         }
         ac.addAction(submitAction)
         present(ac, animated: true)
@@ -135,18 +146,19 @@ class ViewController: UIViewController {
             // Если введена правильная буква
         } else  if lettersInWord.contains(upperAnswer){
             showMassege(errorMasseges: .rightAnswer)
-            score += 1
-            usedLettersArray.append(upperAnswer)
             promptWord = ""
-            for letter in word {
-                let strLetter = String(letter)
-                if usedLettersArray.contains(strLetter) {
-                    promptWord += strLetter
-                } else {
-                    //showError(errorMasseges: .thereIsNoSuchLetter)
-                    promptWord += "?"
+                score += 1
+                usedLettersArray.append(upperAnswer)
+                for letter in word {
+                    let strLetter = String(letter)
+                    if usedLettersArray.contains(strLetter) {
+                        promptWord += strLetter
+                    } else {
+                        //showError(errorMasseges: .thereIsNoSuchLetter)
+                        promptWord += "?"
                 }
             }
+          
             print(usedLettersArray)
             print(promptWord)
         }
@@ -156,14 +168,17 @@ class ViewController: UIViewController {
     
     // Начало новой игры
     @objc func newGame() {
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            self?.allClues.removeAll()
+            self?.allWords.removeAll()
+            self?.lettersInWord.removeAll()
+            self?.usedLettersArray.removeAll()
+            self?.loadLevel()
+        }
         score = 0
         promptWord = ""
-        allClues.removeAll()
-        allWords.removeAll()
-        lettersInWord.removeAll()
-        usedLettersArray.removeAll()
-        usedLetters.text = ""
-        loadLevel()
+        usedLetters.text = "Here you'll see used letters"
+        
     }
     
     enum Masseges {
